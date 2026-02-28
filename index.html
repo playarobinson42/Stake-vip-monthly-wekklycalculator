@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VIP Bonus Calculator</title>
+
+<style>
+body{
+    background:#0f172a;
+    color:white;
+    font-family:Arial, sans-serif;
+    text-align:center;
+    padding:20px;
+}
+
+.container{
+    max-width:500px;
+    margin:auto;
+}
+
+.card{
+    background:#1e293b;
+    padding:20px;
+    border-radius:14px;
+    margin-top:20px;
+}
+
+input{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:8px;
+    margin-top:10px;
+}
+
+button{
+    width:100%;
+    padding:12px;
+    margin-top:12px;
+    border:none;
+    border-radius:8px;
+    background:#22c55e;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.result{
+    margin-top:15px;
+    font-size:18px;
+    font-weight:bold;
+}
+
+.countdown{
+    margin-top:12px;
+    color:#38bdf8;
+}
+
+.cta{
+    margin-top:30px;
+}
+
+.cta a{
+    display:block;
+    background:#ef4444;
+    color:white;
+    padding:18px;
+    border-radius:10px;
+    text-decoration:none;
+    font-size:20px;
+    font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>VIP Bonus Calculator</h1>
+<p>Estimate your weekly and monthly bonus potential</p>
+
+<div class="card">
+<h2>Weekly Bonus</h2>
+<input type="number" id="weeklyWager" placeholder="Enter Weekly Wager ($)">
+<button onclick="calcWeekly()">Calculate Weekly Bonus</button>
+<div id="weeklyResult" class="result"></div>
+<div id="weeklyCountdown" class="countdown"></div>
+</div>
+
+<div class="card">
+<h2>Monthly Bonus</h2>
+<input type="number" id="monthlyWager" placeholder="Enter Monthly Wager ($)">
+<button onclick="calcMonthly()">Calculate Monthly Bonus</button>
+<div id="monthlyResult" class="result"></div>
+<div id="monthlyCountdown" class="countdown"></div>
+</div>
+
+<div class="cta">
+<p>Ready to start your VIP grind?</p>
+<a href="https://stake.com/?c=oaMn3XsJ" target="_blank">
+Join Stake & Track Your Bonus Potential
+</a>
+</div>
+
+</div>
+
+<script>
+
+/* Bonus Calculators */
+
+function calcWeekly(){
+    let wager=document.getElementById("weeklyWager").value;
+    let estimate=wager*0.0007; 
+    document.getElementById("weeklyResult").innerHTML=
+    "Estimated Weekly Bonus: $" + estimate.toFixed(2);
+}
+
+function calcMonthly(){
+    let wager=document.getElementById("monthlyWager").value;
+    let estimate=wager*0.0015;
+    document.getElementById("monthlyResult").innerHTML=
+    "Estimated Monthly Bonus: $" + estimate.toFixed(2);
+}
+
+/* Countdown System */
+
+function weeklyCountdown(){
+    let now=new Date();
+    let nextWeek=new Date(now);
+    nextWeek.setDate(now.getDate()+(7-now.getDay()));
+    nextWeek.setHours(0,0,0,0);
+
+    let diff=nextWeek-now;
+
+    let days=Math.floor(diff/(1000*60*60*24));
+    let hours=Math.floor(diff/(1000*60*60)%24);
+    let minutes=Math.floor(diff/(1000*60)%60);
+
+    document.getElementById("weeklyCountdown").innerHTML=
+    "Next Weekly Bonus In: "+days+"d "+hours+"h "+minutes+"m";
+}
+
+function monthlyCountdown(){
+    let now=new Date();
+    let nextMonth=new Date(now.getFullYear(),now.getMonth()+1,1);
+
+    let diff=nextMonth-now;
+
+    let days=Math.floor(diff/(1000*60*60*24));
+    let hours=Math.floor(diff/(1000*60*60)%24);
+    let minutes=Math.floor(diff/(1000*60)%60);
+
+    document.getElementById("monthlyCountdown").innerHTML=
+    "Next Monthly Bonus In: "+days+"d "+hours+"h "+minutes+"m";
+}
+
+setInterval(weeklyCountdown,60000);
+setInterval(monthlyCountdown,60000);
+
+weeklyCountdown();
+monthlyCountdown();
+
+</script>
+
+</body>
+</html>
